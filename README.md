@@ -1,2 +1,1 @@
-# Designing-data-bases
-BSUIR course.
+# MySQL-requests
