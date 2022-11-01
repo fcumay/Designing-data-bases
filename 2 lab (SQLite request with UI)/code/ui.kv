@@ -1,0 +1,723 @@
+<MenuScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            text:'Технолог'
+            background_normal: ''
+            background_color: 1,.71,.73,1
+            color: 0,0,0,1
+            on_press:
+                root.manager.current = 'technologist'
+
+        Button:
+            text:'Оператор'
+            background_normal: ''
+            background_color: .54,.78,.82,1
+            color: 0,0,0,1
+            on_press: root.manager.current = 'operator'
+
+
+
+<TechnologistScreen>:
+    BoxLayout:
+        orientation:'vertical'
+        padding: 10
+        spacing: 5
+        Button:
+            text:'Клиенты'
+            background_normal: ''
+            background_color: 1,.71,.73,1
+            color: 0,0,0,1
+            on_press:
+                root.manager.current = 'clients'
+        Button:
+            text:'Тариф'
+            background_normal: ''
+            background_color: 1,.71,.73,1
+            color: 0,0,0,1
+            on_press: root.manager.current = 'tarif'
+
+        Button:
+            text:'Доступные тарифы в компании'
+            background_normal: ''
+            background_color: 1,.71,.73,1
+            color: 0,0,0,1
+            on_press: root.manager.current = 'searchbycompany'
+
+        Button:
+            text:'Поиск стоимости по дате'
+            background_normal: ''
+            background_color: 1,.71,.73,1
+            color: 0,0,0,1
+            on_press: root.manager.current = 'searchpricebydate'
+
+
+<ClientsScreen>
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_normal: ''
+            background_color: 1,.71,.73,1
+            color: 0,0,0,1
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'technologist'
+            size_hint: .1,1
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    id:id_phonenumber_label
+                    text: 'Номер телефона '
+                    color: 0,0,0,1
+                Label:
+                    id:id_fullname_label
+                    text: 'ФИО'
+                    color: 0,0,0,1
+                Label:
+                    id:id_city_label
+                    text: 'Населённый пункт'
+                    color: 0,0,0,1
+                Label:
+                    id:id_date_label
+                    text: 'Дата'
+                    color: 0,0,0,1
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 1,.1
+                Button:
+                    text:'Обновить'
+                    background_normal: ''
+                    background_color: .78,.57,.87,.8
+                    color: 0,0,0,1
+                    on_press: root.show_clients()
+                Button:
+                    text:'Добавить'
+                    background_normal: ''
+                    background_color: .78,.57,.87,.8
+                    color: 0,0,0,1
+                    on_press: root.manager.current = 'addclient'
+                Button:
+                    text:'Изменить'
+                    background_normal: ''
+                    background_color: .78,.57,.87,.8
+                    color: 0,0,0,1
+                    on_press: root.manager.current = 'clients'
+                Button:
+                    text:'Удалить'
+                    background_normal: ''
+                    background_color: .78,.57,.87,.8
+                    color: 0,0,0,1
+                    on_press: root.manager.current = 'delclient'
+
+
+<AddClientScreen>:
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_color: .78,.57,.87,.8
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'clients'
+            size_hint: .1,1
+        BoxLayout:
+            padding:50
+            spacing:20
+            orientation: 'vertical'
+            TextInput:
+                id:phone_number
+                hint_text:'Номер телефона'
+            TextInput:
+                id:full_name
+                hint_text:'ФИО'
+            TextInput:
+                id:address
+                hint_text:'Населённый пункт'
+            TextInput:
+                id:date
+                hint_text:'Дата'
+            Button:
+                on_press: root.add(phone_number.text,full_name.text,address.text,date.text)
+                text: 'Добавить'
+                background_color: .78,.57,.87,.8
+
+<DelClientScreen>:
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_color: .78,.57,.87,.8
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'clients'
+            size_hint: .1,1
+        BoxLayout:
+            padding:50
+            spacing:20
+            orientation: 'vertical'
+            TextInput:
+                id:phone_number
+                hint_text:'Номер телефона'
+            Button:
+                on_press: root.delclient(0,phone_number.text)
+                text: 'Удалить по номеру телефона'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+            TextInput:
+                id:full_name
+                hint_text:'ФИО'
+            Button:
+                on_press: root.delclient(1,full_name.text)
+                text: 'Удалить по фио'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+
+            TextInput:
+                id:address
+                hint_text:'Адрес'
+            Button:
+                on_press: root.delclient(2,address.text)
+                text: 'Удалить по адресу'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+
+            TextInput:
+                id:date
+                hint_text:'Дата YYYY-MM-DD'
+            Button:
+                on_press: root.delclient(3,date.text)
+                text: 'Удалить по дате'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+
+<TarifScreen>
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_normal: ''
+            background_color: 1,.71,.73,1
+            color: 0,0,0,1
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'technologist'
+            size_hint: .1,1
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    id:id_id_label
+                    text: 'IDтариф '
+                    color: 0,0,0,1
+                Label:
+                    id:id_date_label
+                    text: 'Дата'
+                    color: 0,0,0,1
+                Label:
+                    id:id_city_label
+                    text: 'Населённый пункт'
+                    color: 0,0,0,1
+                Label:
+                    id:id_full_label
+                    text: 'Полная стоимость'
+                    color: 0,0,0,1
+                Label:
+                    id:id_part_label
+                    text: 'Льготная стоимость'
+                    color: 0,0,0,1
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 1,.1
+                Button:
+                    text:'Обновить'
+                    background_normal: ''
+                    background_color: .78,.57,.87,.8
+                    color: 0,0,0,1
+                    on_press: root.show_tarif()
+                Button:
+                    text:'Добавить'
+                    background_normal: ''
+                    background_color: .78,.57,.87,.8
+                    color: 0,0,0,1
+                    on_press: root.manager.current = 'addtarif'
+                Button:
+                    text:'Изменить'
+                    background_normal: ''
+                    background_color: .78,.57,.87,.8
+                    color: 0,0,0,1
+                    on_press: root.manager.current = 'updatetarif'
+                Button:
+                    text:'Удалить'
+                    background_normal: ''
+                    background_color: .78,.57,.87,.8
+                    color: 0,0,0,1
+                    on_press: root.manager.current = 'deltarif'
+
+<AddTarifScreen>:
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_color: .78,.57,.87,.8
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'tarif'
+            size_hint: .1,1
+        BoxLayout:
+            padding:50
+            spacing:20
+            orientation: 'vertical'
+            TextInput:
+                id:date
+                hint_text:'Дата'
+            TextInput:
+                id:city
+                hint_text:'Населённый пункт'
+            TextInput:
+                id:full
+                hint_text:'Полная стоимость'
+            TextInput:
+                id:part
+                hint_text:'Льготная стоимость'
+            Button:
+                on_press: root.add(date.text,city.text,full.text,part.text)
+                text: 'Добавить'
+                background_color: .78,.57,.87,.8
+
+<DelTarifScreen>:
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_color: .78,.57,.87,.8
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'tarif'
+            size_hint: .1,1
+        BoxLayout:
+            padding:50
+            spacing:20
+            orientation: 'vertical'
+            TextInput:
+                id:id
+                hint_text:'IDтариф'
+            Button:
+                on_press: root.deltarif(0,id.text)
+                text: 'Удалить по IDтарифу'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+            TextInput:
+                id:date
+                hint_text:'Дата YYYY-MM-DD'
+            Button:
+                on_press: root.deltarif(1,date.text)
+                text: 'Удалить по дате'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+
+            TextInput:
+                id:city
+                hint_text:'Населённому пункту'
+            Button:
+                on_press: root.deltarif(2,city.text)
+                text: 'Удалить по населённому пункту'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+
+            TextInput:
+                id:full
+                hint_text:'Полная стоимость x.y'
+            Button:
+                on_press: root.deltarif(3,full.text)
+                text: 'Удалить по полной стоимости '
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+
+            TextInput:
+                id:part
+                hint_text:'Частичная стоимость x.y'
+            Button:
+                on_press: root.deltarif(3,part.text)
+                text: 'Удалить по частичной стоимости'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+
+
+<UpdateTarifScreen>:
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_color: .78,.57,.87,.8
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'tarif'
+            size_hint: .1,1
+        BoxLayout:
+            padding:50
+            spacing:20
+            orientation: 'vertical'
+            TextInput:
+                id:id
+                hint_text:'IDтариф'
+            TextInput:
+                id:full
+                hint_text:'Полная стоимость х.у'
+            TextInput:
+                id:part
+                hint_text:'Льготная стоимость х.у'
+            Button:
+                on_press: root.update(id.text,full.text,part.text)
+                text: 'Изменить стоимость'
+                background_color: .78,.57,.87,.8
+
+<SearchByCompanyScreen>:
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_normal: ''
+            background_color: 1,.71,.73,1
+            color: 0,0,0,1
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'technologist'
+            size_hint: .1,1
+        BoxLayout:
+            orientation:'vertical'
+            TextInput:
+                id:key
+                hint_text:'Название компании'
+                size_hint: 1,.3
+            Button:
+                text:'Найти'
+                background_normal: ''
+                background_color: .78,.57,.87,.8
+                color: 0,0,0,1
+                size_hint: 1,.2
+                on_press: root.show(key.text)
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    id:id_date_label
+                    text: 'Дата'
+                    color: 0,0,0,1
+                Label:
+                    id:id_city_label
+                    text: 'Населённый пункт'
+                    color: 0,0,0,1
+                Label:
+                    id:id_full_label
+                    text: 'Полная стоимость'
+                    color: 0,0,0,1
+                Label:
+                    id:id_part_label
+                    text: 'Льготная стоимость'
+                    color: 0,0,0,1
+
+<SearchPriceByDateScreen>:
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_normal: ''
+            background_color: 1,.71,.73,1
+            color: 0,0,0,1
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'technologist'
+            size_hint: .1,1
+        BoxLayout:
+            orientation:'vertical'
+            TextInput:
+                id:key
+                hint_text:'Дата YYYY-MM-DD'
+                size_hint: 1,.3
+            Button:
+                text:'Найти'
+                background_normal: ''
+                background_color: .78,.57,.87,.8
+                color: 0,0,0,1
+                size_hint: 1,.2
+                on_press: root.show(key.text)
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    id:id_full_label
+                    text: 'Полная стоимость'
+                    color: 0,0,0,1
+                Label:
+                    id:id_part_label
+                    text: 'Льготная стоимость'
+                    color: 0,0,0,1
+
+<OperatorScreen>:
+    BoxLayout:
+        padding: 10
+        spacing: 5
+        orientation:'vertical'
+        Button:
+            text:'Звонки'
+            background_normal: ''
+            background_color: .54,.78,.82,1
+            color: 0,0,0,1
+            on_press:
+                root.manager.current = 'call'
+        Button:
+            text:'Должники'
+            background_normal: ''
+            background_color: .54,.78,.82,1
+            color: 0,0,0,1
+            on_press: root.manager.current = 'debstor'
+
+        Button:
+            text:'Месяц'
+            background_normal: ''
+            background_color: .54,.78,.82,1
+            color: 0,0,0,1
+            on_press: root.manager.current = 'numberbymonthandcity'
+
+<CallScreen>:
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_normal: ''
+            background_color: .54,.78,.82,1
+            color: 0,0,0,1
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'operator'
+            size_hint: .1,1
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    id:id_id_label
+                    text: 'IDзвонка '
+                    color: 0,0,0,1
+                Label:
+                    id:id_date_label
+                    text: 'Дата'
+                    color: 0,0,0,1
+                Label:
+                    id:id_city_label
+                    text: 'Город'
+                    color: 0,0,0,1
+                Label:
+                    id:id_phone_number_label
+                    text: 'Номер'
+                    color: 0,0,0,1
+                Label:
+                    id:id_time_label
+                    text: 'Длительность'
+                    color: 0,0,0,1
+                Label:
+                    id:id_pay_label
+                    text: 'Оплата'
+                    color: 0,0,0,1
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 1,.1
+                Button:
+                    text:'Обновить'
+                    background_normal: ''
+                    background_color: .73,.87,.84,1
+                    color: 0,0,0,1
+                    on_press: root.show_clients()
+                Button:
+                    text:'Добавить'
+                    background_normal: ''
+                    background_color: .73,.87,.84,1
+                    color: 0,0,0,1
+                    on_press: root.manager.current = 'addcall'
+                Button:
+                    text:'Изменить'
+                    background_normal: ''
+                    background_color: .73,.87,.84,1
+                    color: 0,0,0,1
+                    on_press: root.manager.current = 'call'
+                Button:
+                    text:'Удалить'
+                    background_normal: ''
+                    background_color: .73,.87,.84,1
+                    color: 0,0,0,1
+                    on_press: root.manager.current = 'delcall'
+
+<AddCallScreen>:
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_color: .78,.57,.87,.8
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'call'
+            size_hint: .1,1
+        BoxLayout:
+            padding:50
+            spacing:20
+            orientation: 'vertical'
+            TextInput:
+                id:date
+                hint_text:'Дата'
+            TextInput:
+                id:city
+                hint_text:'Населённый пункт'
+            TextInput:
+                id:phone_number
+                hint_text:'Номер телефона'
+            TextInput:
+                id:time
+                hint_text:'Длительность'
+            TextInput:
+                id:pay
+                hint_text:'Оплата'
+            Button:
+                on_press: root.add(date.text,city.text,phone_number.text,time.text, pay.text)
+                text: 'Добавить'
+                background_color: .78,.57,.87,.8
+
+<DelCallScreen>:
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_color: .78,.57,.87,.8
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'call'
+            size_hint: .1,1
+        BoxLayout:
+            padding:50
+            spacing:20
+            orientation: 'vertical'
+            TextInput:
+                id:id
+                hint_text:'IDзвонка'
+            Button:
+                on_press: root.delcall(0,id.text)
+                text: 'Удалить по IDзвонка'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+            TextInput:
+                id:date
+                hint_text:'Дата YYYY-MM-DD'
+            Button:
+                on_press: root.delcall(1,date.text)
+                text: 'Удалить по дате'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+
+            TextInput:
+                id:city
+                hint_text:'Населённый пункт'
+            Button:
+                on_press: root.delcall(2,city.text)
+                text: 'Удалить по населённому пункту'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+
+            TextInput:
+                id:phone_number
+                hint_text:'Номер телефона'
+            Button:
+                on_press: root.delcall(3,phone_number.text)
+                text: 'Удалить по номеру телефона '
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+
+            TextInput:
+                id:time
+                hint_text:'Длительность звонка HH:MM;SS'
+            Button:
+                on_press: root.delcall(4,time.text)
+                text: 'Удалить по длительности звонка'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+            TextInput:
+                id:pay
+                hint_text:'Оплата'
+            Button:
+                on_press: root.delcall(5,pay.text)
+                text: 'Удалить по оплате'
+                background_color: .78,.57,.87,.8
+                size_hint: 1,.1
+<DebstorScreen>:
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_normal: ''
+            background_color: .54,.78,.82,1
+            color: 0,0,0,1
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'operator'
+            size_hint: .1,1
+        BoxLayout:
+            orientation:'vertical'
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    id:id_date_label
+                    text: 'Дата'
+                    color: 0,0,0,1
+                Label:
+                    id:id_phone_number_label
+                    text: 'Номер'
+                    color: 0,0,0,1
+                Label:
+                    id:id_full_name_label
+                    text: 'ФИО'
+                    color: 0,0,0,1
+                Label:
+                    id:id_city_label
+                    text: 'Город'
+                    color: 0,0,0,1
+                Label:
+                    id:id_name_label
+                    text: 'Название компании'
+                    color: 0,0,0,1
+            Button:
+                text:'Показать должников'
+                background_normal: ''
+                background_color: .73,.87,.84,1
+                color: 0,0,0,1
+                size_hint: 1,.2
+                on_press: root.show()
+<NumberByMonthAndCityScreen>:
+    BoxLayout:
+        Button:
+            text: 'Назад'
+            background_normal: ''
+            background_color: .54,.78,.82,1
+            color: 0,0,0,1
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'operator'
+            size_hint: .1,1
+        BoxLayout:
+            orientation:'vertical'
+            TextInput:
+                id:month
+                hint_text:'Месяц MM'
+                size_hint: 1,.3
+            TextInput:
+                id:city
+                hint_text:'City'
+                size_hint: 1,.3
+            Button:
+                text:'Найти'
+                background_normal: ''
+                background_color: .73,.87,.84,1
+                color: 0,0,0,1
+                on_press: root.show(month.text, city.text)
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    id:id_date_label
+                    text: 'Дата'
+                    color: 0,0,0,1
+                Label:
+                    id:id_client_label
+                    text: 'Количество клиентов связавшихся с городом'
+                    color: 0,0,0,1
+
+
+
